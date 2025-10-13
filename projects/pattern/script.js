@@ -16,6 +16,7 @@ let grayGrid = [];
 fileInput.addEventListener("change", e => {
   const file = e.target.files[0];
   if (!file) return;
+
   const img = new Image();
   img.onload = () => {
     const w = img.width;
@@ -23,23 +24,29 @@ fileInput.addEventListener("change", e => {
     canvas.width = w;
     canvas.height = h;
     ctx.drawImage(img, 0, 0, w, h);
+
+    // Convert to grayscale
     const data = ctx.getImageData(0, 0, w, h).data;
     grayGrid = [];
     for (let y = 0; y < h; y++) {
       const row = [];
       for (let x = 0; x < w; x++) {
         const i = (y * w + x) * 4;
-        const gray = 0.299 * data[i] + 0.587 * data[i+1] + 0.114 * data[i+2];
+        const gray = 0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2];
         row.push(gray);
       }
       grayGrid.push(row);
     }
+
+    // Update sliders to match image size
     widthSlider.max = w;
     heightSlider.max = h;
     widthSlider.value = w;
     heightSlider.value = h;
     widthLabel.textContent = w;
     heightLabel.textContent = h;
+
+    // Immediately generate preview & Base64
     update();
   };
   img.src = URL.createObjectURL(file);
@@ -47,6 +54,7 @@ fileInput.addEventListener("change", e => {
 
 function update() {
   if (grayGrid.length === 0) return;
+
   const threshold = parseInt(thresholdSlider.value);
   const newW = parseInt(widthSlider.value);
   const newH = parseInt(heightSlider.value);
@@ -70,6 +78,7 @@ function update() {
     bwGrid.push(row);
   }
 
+  // Draw canvas
   for (let y = 0; y < newH; y++) {
     for (let x = 0; x < newW; x++) {
       ctx.fillStyle = bwGrid[y][x] ? color1 : color2;
@@ -77,7 +86,7 @@ function update() {
     }
   }
 
-  // Encode pattern
+  // Encode Base64 pattern
   let flatBytes = [];
   let byte = 0, bitsFilled = 0;
   for (let row of bwGrid) {
@@ -107,25 +116,15 @@ function update() {
   resultBox.textContent = b64Pattern;
 }
 
-resultBox.addEventListener("click", () => {
-  const code = resultBox.textContent.trim();
-  if (code) {
-    const url = "https://aotumuri.github.io/openfront-utility/#" + code;
-    window.open(url, "_blank");
-  }
-});
-
-thresholdSlider.addEventListener("input", e => {
-  threshLabel.textContent = e.target.value;
-  update();
-});
-widthSlider.addEventListener("input", e => {
-  widthLabel.textContent = e.target.value;
-  update();
-});
-heightSlider.addEventListener("input", e => {
-  heightLabel.textContent = e.target.value;
-  update();
-});
+// Event listeners for sliders/colors
+thresholdSlider.addEventListener("input", e => { threshLabel.textContent = e.target.value; update(); });
+widthSlider.addEventListener("input", e => { widthLabel.textContent = e.target.value; update(); });
+heightSlider.addEventListener("input", e => { heightLabel.textContent = e.target.value; update(); });
 color1Picker.addEventListener("input", update);
 color2Picker.addEventListener("input", update);
+
+// Click Base64 to open in OpenFront Utility
+resultBox.addEventListener("click", () => {
+  const code = resultBox.textContent.trim();
+  if (code) window.open("https://aotumuri.github.io/openfront-utility/#" + code, "_blank");
+});
