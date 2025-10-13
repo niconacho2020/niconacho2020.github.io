@@ -1,0 +1,51 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+h2 {
+    font-family: Papyrus;
+}
+.container {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.15);
+    width: 80vw;
+    text-align: center;
+}
+input[type="file"] {
+    margin: 1rem 0;
+}
+.result {
+    background: #eee;
+    padding: 1rem;
+    border-radius: 8px;
+    word-wrap: break-word;
+    font-family: monospace;
+    text-align: left;
+    max-height: 200px;
+    overflow-y: auto;
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline;
+}
+#preview {
+    width: 60%;
+    height: auto;
+    border: 1px solid #ccc;
+    image-rendering: pixelated;
+    margin-top: 1rem;
+}
+.slider-container, .color-container {
+    margin: 1rem 0;
+    text-align: left;
+}
+.slider-container label, .color-container label {
+    display: inline-block;
+    width: 120px;
+}
