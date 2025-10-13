@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Pattern Encoder</title>
+</head>
+<body>
+<script src="pattern_generator.js"></script>
+<div class="container">
+    <h2>Pattern Encoder</h2>
+    <input type="file" id="fileInput" accept="image/*">
+    
+    <div class="slider-container">
+        <label>Threshold: <span id="threshValue">128</span></label>
+        <input type="range" id="thresholdSlider" min="0" max="255" value="128">
+    </div>
+
+    <div class="slider-container">
+        <label>Max Width: <span id="widthValue">64</span></label>
+        <input type="range" id="widthSlider" min="1" max="64" value="64">
+    </div>
+
+    <div class="slider-container">
+        <label>Max Height: <span id="heightValue">64</span></label>
+        <input type="range" id="heightSlider" min="1" max="64" value="64">
+    </div>
+
+    <div class="color-container">
+        <label>Color 1:</label>
+        <input type="color" id="color1" value="#000000">
+    </div>
+
+    <div class="color-container">
+        <label>Color 2:</label>
+        <input type="color" id="color2" value="#ffffff">
+    </div>
+
+    <canvas id="preview"></canvas>
+
+    <h3>Base64 Pattern Key:</h3>
+    <div class="result" id="resultBox"></div>
+    <p id="clickHint" style="font-size: 0.9rem; color: #555;">Click the code above to open it in OpenFront Utility</p>
+</div>
+</body>
+</html>
