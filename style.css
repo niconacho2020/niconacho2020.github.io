@@ -62,3 +62,12 @@ h2 {
   background-color: rgba(20, 20, 20, 0.7);
   opacity: 1;
 }
+.box:hover .preview {
+  animation-name: image-shrink;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+}
+@keyframes image-shrink {
+  0%{width: 100%;}
+  100%{width: 95%;}
+}
