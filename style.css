@@ -69,5 +69,5 @@ h2 {
 }
 @keyframes image-shrink {
   0%{width: 400px;}
-  100%{width: 380px; margin: -20px;}
+  100%{width: 380px; margin: 20px;}
 }
