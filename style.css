@@ -22,27 +22,19 @@ h2 {
   aspect-ratio: 1/1;
   border-radius: 10px;
   position: relative;
+  transition: filter 0.3s ease, box-shadow 0.3s ease;
 }
 
 .preview {
   width: 400px;
   border-radius: 10px;
+  transition: width 0.3s ease, margin 0.3s ease, filter 0.3s ease;
 }
 .box:hover {
-  animation-name: preview-hover-animation;
-  animation-duration: 0.3s;
-  animation-fill-mode: forwards;
-}
-.preview:hover {
-  animation-name: preview-hover-animation;
-  animation-duration: 0.3s;
-  animation-fill-mode: forwards;
+  filter: brightness(90%);
+  box-shadow: -10px 5px 5px rgba(0, 0, 0, 0.491);
 }
 
-@keyframes preview-hover-animation {
-  0%{filter: brightness(100%);}
-  100%{filter:brightness(95%);}
-}
 .preview-text {
   bottom:0%;
   left: 50%;
@@ -56,18 +48,14 @@ h2 {
   align-items: center;
   justify-content: center;
   font-size:200%;
+  transition: opacity 0.3s ease;
+  background-color: #141414;
 }
 .box:hover .preview-text {
+  opacity: 0.7;
   filter: brightness(100%);
-  background-color: rgba(20, 20, 20, 0.7);
-  opacity: 1;
 }
 .box:hover .preview {
-  animation-name: image-shrink;
-  animation-duration: 0.3s;
-  animation-fill-mode: forwards;
-}
-@keyframes image-shrink {
-  0%{width: 400px;}
-  100%{width: 390px; margin: 5px;}
+  width: 390px;
+  margin: 5px;
 }
