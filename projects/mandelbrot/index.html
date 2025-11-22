@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="
+https://cdn.jsdelivr.net/npm/mathjs@15.1.0/lib/browser/math.min.js
+"></script>
+	</head>
+	<body>
+		<canvas id="myCanvas" width="800" height="800"></canvas>
+		<script>
+			var canvas = document.getElementById("myCanvas");
+			var ctx = canvas.getContext("2d");
+			let res = 1;
+			let posX = -0.5;
+			let posY = 0;
+			let zoom = 1.3;
+			let ch = canvas.height / 2;
+			let cw = canvas.width / 2;
+			let done = false;
+			let maxIter = 360;
+			let julia = false;
+			let juliaPosX = 0;
+			let juliaPosY = 0;
+			let zr = 0;
+			let zi = 0;
+			let cr = 0;
+			let ci = 0;
+			let pa = 2;
+
+			function cmplxMultiply(a, b, c, d) {
+				return [a * c - b * d, a * d + b * c];
+			}
+
+			function hsl2rgb(h, s, l) {
+				let a = s * Math.min(l, 1 - l);
+				let f = (n, k = (n + h / 30) % 12) =>
+					l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+				return [f(0) * 255, f(8) * 255, f(4) * 255];
+			}
+
+			function cmplxPow(x, y, p) {
+				const r = Math.hypot(x, y);
+				const theta = Math.atan2(y, x);
+
+				const rp = Math.pow(r, p);
+				const angle = theta * p;
+
+				return [rp * Math.cos(angle),rp * Math.sin(angle)];
+			}
+
+
+			function cmplxAdd(a, b, c, d) {
+				return [a + c, b + d];
+			}
+
+			function calcSet() {
+				for (let x = 0; x < canvas.width; x += res) {
+					for (let y = 0; y < canvas.height; y += res) {
+						let iter = 0;
+						let rZoom = zoom * 200;
+
+						if (!julia) {
+							zr = 0;
+							zi = 0;
+							cr = (x - cw + posX * rZoom) / rZoom;
+							ci = (y - ch + posY * rZoom) / rZoom;
+						}
+
+						if (julia) {
+							zr = (x - cw + posX * rZoom) / rZoom;
+							zi = (y - ch + posY * rZoom) / rZoom;
+							cr = juliaPosX;
+							ci = juliaPosY;
+							ctx.fillStyle = "red";
+							ctx.fillRect(
+								juliaPosX * 200 + 400,
+								juliaPosY * 200 + 400,
+								20,
+								20
+							);
+						}
+
+						while (Math.hypot(zr, zi) < 2 && iter < maxIter) {
+							// let multiply = cmplxPow(zr, zi, 2);
+							// let add = cmplxAdd(multiply[0], multiply[1], cr, ci);
+							// zr = add[0];
+							// zi = add[1];
+							zr = zr * zr - zi * zi + cr
+							zi = pa * zr * zi + ci
+							iter += 1;
+						}
+						let v = iter;
+						if (Math.hypot(zr, zi) < 2) {
+							ctx.fillStyle = "black";
+							ctx.fillRect(x, y, res, res);
+						} else {
+							let color = hsl2rgb(v, 1, 0.5);
+							ctx.fillStyle = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+							// ctx.fillStyle = "black"
+							ctx.fillRect(x, y, res, res);
+						}
+					}
+				}
+				done = true;
+				console.log("done");
+			}
+			document.addEventListener("keypress", (e) => {
+				switch (e.key) {
+					case "w":
+						posY -= 1 / zoom;
+						done = false;
+						break;
+					case "a":
+						posX -= 1 / zoom;
+						done = false;
+						break;
+					case "s":
+						posY += 1 / zoom;
+						done = false;
+						break;
+					case "d":
+						posX += 1 / zoom;
+						done = false;
+						break;
+					case "q":
+						zoom *= 2;
+						done = false;
+						break;
+					case "e":
+						zoom /= 2;
+						done = false;
+						break;
+					case "[":
+						res += 2;
+						done = false;
+						break;
+					case "]":
+						res -= 2;
+						done = false;
+						break;
+					case ".":
+						done = false;
+						maxIter += 20;
+						break;
+					case ",":
+						done = false;
+						maxIter -= 20;
+						break;
+					case "j":
+						done = false;
+						julia = !julia;
+						break;
+					case "p":
+						juliaPosX = posX;
+						juliaPosY = posY;
+						done = false;
+						break;
+					case "i":
+						pa -= 0.1;
+						done = false;
+						break;
+					case "o":
+						pa += 0.1;
+						done = false;
+						break;
+				}
+			});
+
+			document.onkeydown = function (e) {
+				switch (e.keyCode) {
+					case 37:
+						juliaPosX -= 0.1 / zoom;
+						done = false;
+						break;
+					case 38:
+						juliaPosY -= 0.1 / zoom;
+						done = false;
+						break;
+					case 39:
+						juliaPosX += 0.1 / zoom;
+						done = false;
+						break;
+					case 40:
+						juliaPosY += 0.1 / zoom;
+						done = false;
+						break;
+				}
+			};
+			function main() {
+				if (!done) {
+					calcSet();
+				}
+
+				requestAnimationFrame(main);
+			}
+
+			main();
+		</script>
+	</body>
+</html>
