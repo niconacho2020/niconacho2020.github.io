@@ -82,13 +82,16 @@ https://cdn.jsdelivr.net/npm/mathjs@15.1.0/lib/browser/math.min.js
 						}
 
 						while (Math.hypot(zr, zi) < 2 && iter < maxIter) {
-							let multiply = cmplxPow(zr, zi, 2);
-							let add = cmplxAdd(multiply[0], multiply[1], cr, ci);
-							zr = add[0];
-							zi = add[1];
-							// zr = zr * zr - zi * zi + cr
-							// zi = pa * zr * zi + ci
-							iter += 1;
+							if (set == 1) {
+								let multiply = cmplxPow(zr, zi, 2);
+								let add = cmplxAdd(multiply[0], multiply[1], cr, ci);
+								zr = add[0];
+								zi = add[1];
+							}else if(set == 2){
+								zr = zr * zr - zi * zi + cr
+								zi = pa * zr * zi + ci
+								iter += 1;
+							}
 						}
 						let v = iter;
 						if (Math.hypot(zr, zi) < 2) {
@@ -164,6 +167,14 @@ https://cdn.jsdelivr.net/npm/mathjs@15.1.0/lib/browser/math.min.js
 						break;
 					case "o":
 						pa += 0.1;
+						done = false;
+						break;
+					case "1":
+						set = 1;
+						done = false;
+						break;
+					case "2":
+						set = 2;
 						done = false;
 						break;
 				}
