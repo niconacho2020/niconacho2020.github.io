@@ -10,7 +10,7 @@ https://cdn.jsdelivr.net/npm/mathjs@15.1.0/lib/browser/math.min.js
 		<script>
 			var canvas = document.getElementById("myCanvas");
 			var ctx = canvas.getContext("2d");
-			let res = 1;
+			let res = 4;
 			let posX = -0.5;
 			let posY = 0;
 			let zoom = 1.3;
@@ -91,8 +91,8 @@ https://cdn.jsdelivr.net/npm/mathjs@15.1.0/lib/browser/math.min.js
 							}else if(set == 2){
 								zr = zr * zr - zi * zi + cr
 								zi = pa * zr * zi + ci
-								iter += 1;
 							}
+							iter += 1;
 						}
 						let v = iter;
 						if (Math.hypot(zr, zi) < 2) {
