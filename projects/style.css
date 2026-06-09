@@ -1,0 +1,95 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+canvas {
+    margin: 0px;
+    display: block;
+}
+
+#ui {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+
+    top: 20px;
+    left: 20px;
+
+    border: 1px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+
+    padding: 10px 5px 10px 5px;
+}
+
+button {
+    border: 1px;
+    border-color: black;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    font-size: 25px;
+
+    user-select: none;
+}
+
+.uis {
+    display: flex;
+    flex-direction: column;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+button:focus {
+    /* Removes the default focus outline for mouse clicks */
+    outline: none;
+}
+
+button:focus-visible {
+    /* Restores a nice outline ONLY for keyboard users (important for accessibility!) */
+    outline: none;
+}
+
+input[type="color"] {
+    width: 90%;
+    background-color: rgba(255, 255, 255, 0);
+    border: 0;
+}
+
+input[type="text"] {
+    width: 90%;
+    background-color: rgba(200, 200, 200, 0);
+    backdrop-filter: blur(20px);
+    border: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 15px;
+}
+
+#coloring {
+    background-color: white;
+}
+
+input:focus {
+    /* Removes the default focus outline for mouse clicks */
+    outline: none;
+}
+
+input:focus-visible {
+    /* Restores a nice outline ONLY for keyboard users (important for accessibility!) */
+    outline: none;
+}
+
+#coloring:focus {
+    width: 500px;
+    position: absolute;
+}
+
+#reset {
+    margin-top: 30px;
+}

@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+        <canvas id="canvas"></canvas>
+        <link rel="stylesheet" href="style.css">
+
+        <div id="ui">
+            <p id="fps"></p>
+            <button id="generate", onclick="generate()">⟳</button>
+
+            <div class="uis">
+                <label for="squareSize">Square size:</label>
+                <input id="squareSize" type="range" min="1" max="20" value="1" class="num-slider" id="myRange">
+            </div>
+
+            <div class="uis">
+                <label for="spawnCount">Seed count:</label>
+                <input id="spawnCount" type="text" min="1" max="500" value="100" class="num-slider" id="myRange">
+            </div>
+
+            <div class="uis">
+                <label for="depth">Iterate Depth:</label>
+                <input id="depth" type="text" min="50" max="1000" value="500" class="num-slider" id="myRange">
+            </div>
+
+            <div class="uis">
+                <label for="chance">Generate Chance:</label>
+                <input id="chance" type="tex" min="0" max="100" value="40" class="num-slider" id="myRange">
+            </div>
+
+            <div class="uis">
+                <label for="background">Background color</label>
+                <input id="background" type="color" value="#ffffff">
+            </div>
+
+            <div class="uis">
+                <label for="coloring">Background color</label>
+                <input id="coloring" type="text" value="hCtx.fillStyle = ren.HSLToRGB(0, 0, 100 - 100 * (lcount / max));">
+            </div>
+
+            <div class="uis">
+                <label for="coloring">Filling Function</label>
+                <div id="inputSquare">
+                    <div id="row1">
+                        <input class="directions" type="checkbox" id="1" >
+                        <input class="directions" type="checkbox" id="2" checked>
+                        <input class="directions" type="checkbox" id="3" >
+                    </div>
+                    
+                    <div id="row2">
+                        <input class="directions" type="checkbox" id="4" checked>
+                        <input type="checkbox">
+                        <input class="directions" type="checkbox" id="5" checked>
+                    </div>
+
+                    <div id="row1">
+                        <input class="directions" type="checkbox" id="6" >
+                        <input class="directions" type="checkbox" id="7" checked>
+                        <input class="directions" type="checkbox" id="8" >
+                    </div>
+                </div>
+            </div>
+
+            <div class=""uis></div>
+
+            <button id="reset", onclick="reset()">Reset Settings</button>
+        </div>
+
+        <script src = "code.js"></script>
+    </body>
+</html>
